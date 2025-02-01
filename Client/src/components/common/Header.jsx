@@ -18,7 +18,7 @@ const Header = () => {
         setTransitioning(true);
         setIndex((prevIndex) => (prevIndex + 1) % data.length);
       }
-    }, 3000);
+    }, 3000); // 3초 마다 셋인터벌
 
     return () => clearInterval(interval);
   }, [transitioning, data.length]);
