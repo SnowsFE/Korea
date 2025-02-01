@@ -1,0 +1,22 @@
+:root {
+  --BgColor: #f8f8f8;
+  --MainColor: #263576;
+  --textColor: #ffffff;
+  --line: #d9dddd;
+}
+
+body {
+  width: 1280px;
+  margin: 0 auto;
+  padding-top: 70px;
+  background-color: var(--Bgcolor);
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}
