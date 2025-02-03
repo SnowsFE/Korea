@@ -1,9 +1,9 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import BoardList from "./components/Board/BoardList";
-import PostDetail from "./components/Board/PostDetail";
 import Layout from "./components/common/Layout";
+import Notice from "./pages/Notice/Notice";
+import Board from "./components/Board/Boards";
 
 function App() {
   return (
@@ -11,8 +11,8 @@ function App() {
       <Layout />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/boards" element={<BoardList />} />
-        <Route path="/boards/:id" element={<PostDetail />} />
+        <Route path="boards/*" element={<Board />} />
+        <Route path="/notice/*" element={<Notice />} />
       </Routes>
     </Router>
   );
