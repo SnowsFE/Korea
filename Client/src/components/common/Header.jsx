@@ -70,7 +70,6 @@ const Section = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  border-bottom: 1px solid var(--line);
   z-index: 1000;
   display: flex;
   justify-content: center;
@@ -116,16 +115,15 @@ const FreeCourse = styled.div`
 `;
 
 const Bullet = styled.span`
-  margin-right: 8px;
+  margin: 0 8px 4px 0;
 `;
 
 const TextWrapper = styled.div`
-  height: 20px; /* 텍스트 한 줄의 높이 */
+  height: 16px; /* 텍스트 한 줄의 높이 */
   overflow: hidden; /* 넘치는 텍스트 숨김 */
 `;
 
 const Text = styled.div`
-  height: 20px; /* 텍스트 한 줄의 높이 */
   transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out; /* 부드러운 이동 효과와 투명도 변화 */
 `;
 
