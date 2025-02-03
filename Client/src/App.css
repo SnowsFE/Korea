@@ -6,9 +6,10 @@
 }
 
 body {
-  width: 1280px;
+  max-width: 1280px;
+  width: 100%;
   margin: 0 auto;
-  padding-top: 70px;
+  padding: 70px 10px 0 10px ;
   background-color: var(--Bgcolor);
 }
 
