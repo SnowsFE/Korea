@@ -4,29 +4,29 @@ import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Data from "./Data";
 
-const PostDetail = () => {
+const BoardsDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
   // 게시글 데이터 찾기
-  const post = Data.find((item) => item.id === parseInt(id));
+  const Boards = Data.find((item) => item.id === parseInt(id));
 
-  if (!post) {
+  if (!Boards) {
     return <NotFound>게시글을 찾을 수 없습니다?</NotFound>;
   }
 
   return (
     <DetailContainer>
-      <Category>{post.category}</Category>
-      <Title>{post.title}</Title>
-      <Author>작성자: {post.author}</Author>
-      <Content>{post.content}</Content>
+      <Category>{Boards.category}</Category>
+      <Title>{Boards.title}</Title>
+      <Author>작성자: {Boards.author}</Author>
+      <Content>{Boards.content}</Content>
       <BackButton onClick={() => navigate(-1)}>← 목록으로 돌아가기</BackButton>
     </DetailContainer>
   );
 };
 
-export default PostDetail;
+export default BoardsDetail;
 
 // 스타일링 개선
 const DetailContainer = styled.div`
