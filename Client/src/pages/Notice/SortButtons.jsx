@@ -1,17 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const SortButtons = ({ sortType, setSortType }) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const sortParam = queryParams.get("sort");
+
+    // sort 파라미터가 없으면 기본값으로 '최신순' 설정
+    if (sortParam) {
+      setSortType(sortParam);
+    } else {
+      setSortType("최신순"); // 기본값 설정
+      navigate("?sort=최신순"); // URL에 기본값 반영
+    }
+  }, [setSortType, navigate]);
+
+  const handleSortChange = (type) => {
+    setSortType(type);
+    navigate(`?sort=${type}`); // navigate()로 변경
+  };
+
   return (
     <SortButtonsWrapper>
       <SortButton
-        onClick={() => setSortType("최신순")}
+        onClick={() => handleSortChange("최신순")}
         active={sortType === "최신순"}
       >
         <CheckIcon active={sortType === "최신순"}>✔</CheckIcon> 최신순
       </SortButton>
       <SortButton
-        onClick={() => setSortType("인기순")}
+        onClick={() => handleSortChange("인기순")}
         active={sortType === "인기순"}
       >
         <CheckIcon active={sortType === "인기순"}>✔</CheckIcon> 인기순

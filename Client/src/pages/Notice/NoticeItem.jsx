@@ -1,9 +1,17 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const NoticeItem = ({ data }) => {
+  const navigate = useNavigate();
+
+  // 게시글 상세 페이지로 이동하는 함수
+  const detailNotice = () => {
+    navigate(`/notice/${data.id}`); // /notice/:id 형식으로 이동
+  };
+
   return (
-    <NoticeBox>
+    <NoticeBox onClick={detailNotice}>
       <NoticeImage>
         <img src={data.image} alt="공지사항 이미지" />
       </NoticeImage>
@@ -27,6 +35,7 @@ const NoticeBox = styled.div`
   padding: 16px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  cursor: pointer;
 
   &:hover {
     transform: translateY(-5px);
@@ -52,6 +61,11 @@ const NoticeTitle = styled.div`
   font-weight: bold;
   margin: 10px 0 6px 0;
   color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 `;
 
 const NoticeContent = styled.div`
