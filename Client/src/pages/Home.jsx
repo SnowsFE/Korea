@@ -1,14 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import MainBanner from "../components/elements/Main_Banner";
-import MainService from "../components/elements/Main_Service";
+import Main from "../components/elements/Main";
 
 const Home = () => {
   return (
     <Section>
       <Body>
-        <MainBanner/>
-        <MainService/>
+        <Main/>
       </Body>
     </Section>
   );

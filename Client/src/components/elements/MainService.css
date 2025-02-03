@@ -1,0 +1,31 @@
+.Main_Service div{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.Main_Service a{
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    width: 48%;
+    padding: 20px 15px;
+    border-radius: 8px;
+    background-color: #F9FAFB;
+    box-shadow: 0 0 5px rgba(125,125,125,0.4);
+}
+
+.Main_Service img{
+    margin-right: 10px;
+}
+
+.Main_Service h3{
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.Main_Service span{
+    width: 100%;
+    font-size: 16px;
+    margin-top: 10px;
+}
