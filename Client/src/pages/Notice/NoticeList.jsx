@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Pagination from "../../components/Board/Pagination";
+import Pagination from "../../components/common/Pagination";
 import noticeData from "./NoticeData";
 import NoticeItem from "./NoticeItem";
 import SortButtons from "./SortButtons";
@@ -9,7 +9,7 @@ const NoticesList = () => {
   const [sortedData, setSortedData] = useState([...noticeData]); // 정렬된 데이터 상태
   const [currentPageData, setCurrentPageData] = useState([]);
   const [sortType, setSortType] = useState("최신순");
-  const itemsPerPage = 8;
+  const itemsPerPage = 1;
 
   // 정렬 로직
   useEffect(() => {

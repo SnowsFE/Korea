@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Pagination from "./Pagination";
+import Pagination from "../common/Pagination";
 import data from "./Data";
 
 const BoardList = () => {
