@@ -15,7 +15,7 @@ const Pagination = ({ data, pagePer, groupSize = 5, onPageChange }) => {
   };
 
   const prevGroup = () => {
-    const newPage = Math.max(1, (currentGroup - 1) * groupSize);
+    const newPage = Math.max(1, (currentGroup - 2) * groupSize + 1);
     changePage(newPage);
   };
 
