@@ -9,7 +9,7 @@ const NoticesList = () => {
   const [sortedData, setSortedData] = useState([...noticeData]); // 정렬된 데이터 상태
   const [currentPageData, setCurrentPageData] = useState([]);
   const [sortType, setSortType] = useState("최신순");
-  const itemsPerPage = 1;
+  const itemsPerPage = 8;
 
   // 정렬 로직
   useEffect(() => {
