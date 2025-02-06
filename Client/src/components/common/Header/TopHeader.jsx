@@ -70,7 +70,7 @@ const Section = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 99;
   display: flex;
   justify-content: center;
   color: var(--textColor);
@@ -102,7 +102,6 @@ const Right = styled.div`
 
 const Event = styled.div`
   padding: 10px 20px;
-  border-radius: 2px;
   color: var(--MainColor);
   background-color: var(--textColor);
   font-size: 16px;

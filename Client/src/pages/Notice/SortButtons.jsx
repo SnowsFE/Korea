@@ -9,18 +9,17 @@ const SortButtons = ({ sortType, setSortType }) => {
     const queryParams = new URLSearchParams(window.location.search);
     const sortParam = queryParams.get("sort");
 
-    // sort 파라미터가 없으면 기본값으로 '최신순' 설정
     if (sortParam) {
       setSortType(sortParam);
     } else {
-      setSortType("최신순"); // 기본값 설정
-      navigate("?sort=최신순"); // URL에 기본값 반영
+      setSortType("최신순");
+      navigate("?sort=최신순");
     }
   }, [setSortType, navigate]);
 
   const handleSortChange = (type) => {
     setSortType(type);
-    navigate(`?sort=${type}`); // navigate()로 변경
+    navigate(`?sort=${type}`);
   };
 
   return (
@@ -31,6 +30,7 @@ const SortButtons = ({ sortType, setSortType }) => {
       >
         <CheckIcon active={sortType === "최신순"}>✔</CheckIcon> 최신순
       </SortButton>
+      <SortSeparator active={sortType === "최신순"} />
       <SortButton
         onClick={() => handleSortChange("인기순")}
         active={sortType === "인기순"}
@@ -53,10 +53,19 @@ const SortButton = styled.button`
   border: none;
   cursor: pointer;
   font-size: 14px;
-  font-weight: bold;
+  font-family: "Noto-B";
   color: ${(props) => (props.active ? "#16be78" : "#333")};
   display: flex;
   gap: 6px;
+  margin-right: ${(props) => (props.active ? "0" : "5px")};
+`;
+
+const SortSeparator = styled.div`
+  width: 1px;
+  height: 10px;
+  background: #c4c4c4;
+  align-self: center;
+  margin: ${(props) => (props.active ? "1px -8px 0 10px" : "1px 8px 0 5px")};
 `;
 
 const CheckIcon = styled.span`
