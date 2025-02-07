@@ -1,5 +1,15 @@
+import styled from "styled-components";
+
 const Bg = () => {
-  <img src="/images/bg.jpg" alt="Bg"></img>;
+  <Bgimg>
+    <img src="/images/bg.jpg" alt="Bg"></img>;
+  </Bgimg>;
 };
 
 export default Bg;
+
+const Bgimg = styled.div`
+  img {
+    width: 2000px;
+  }
+`;
