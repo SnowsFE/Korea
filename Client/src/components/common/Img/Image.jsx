@@ -12,15 +12,15 @@ export default Bg;
 
 const Bgimg = styled.div`
   position: relative;
-  overflow: hidden; /* 이미지가 부모 영역 밖으로 나가지 않도록 설정 */
+  overflow: hidden;
 
   img {
     width: 100%;
-    opacity: 0; /* 기본 상태에서 보이지 않음 */
-    transition: opacity 0.5s ease-in-out; /* 부드러운 전환 효과 */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
   }
 
   &:hover img {
-    opacity: 1; /* 마우스가 도달했을 때 이미지 보이기 */
+    opacity: 1;
   }
 `;
