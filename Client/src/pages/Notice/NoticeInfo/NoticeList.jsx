@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Pagination from "../../components/common/Pagination";
+import Pagination from "../../../components/common/Pagination";
 import noticeData from "./NoticeData";
 import NoticeItem from "./NoticeItem";
 import SortButtons from "./SortButtons";

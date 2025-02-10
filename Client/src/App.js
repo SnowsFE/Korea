@@ -6,6 +6,7 @@ import Layout from "./components/common/Layout/Layout";
 import Notice from "./pages/Notice/Notice";
 import Event from "./pages/Event/Event";
 import Board from "./components/Board/Boards";
+import JobApi from "./pages/JobInfo/Job";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="boards/*" element={<Board />} />
           <Route path="notice/*" element={<Notice />} />
+          <Route path="job/*" element={<JobApi />} />
         </Route>
         <Route path="/event/*" element={<Event />} />{" "}
         {/* Layout 없이 개별 렌더링 */}
