@@ -1,0 +1,10 @@
+.Main{
+    padding: 0 2%;
+    background-color: #F9FAFB;
+}
+
+#root h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 30px 0;
+}
