@@ -45,7 +45,7 @@ export default SortButtons;
 
 const SortButtonsWrapper = styled.div`
   display: flex;
-  margin-left: 20px;
+  margin: 40px 0 0 20px;
 `;
 
 const SortButton = styled.button`

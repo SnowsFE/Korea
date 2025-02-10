@@ -21,12 +21,18 @@ const JobInfo = () => {
         setLoading(false);
       });
   }, []);
-
   return (
     <Container>
-      <Header>서울특별시 취업 정보 센터</Header>
+      <Header>
+        서울특별시 취업 정보 센터
+        <img src="/images/shiny.png" alt="shiny" />
+      </Header>
       {loading ? (
         <LoadingMessage>데이터를 로딩 중입니다...</LoadingMessage>
+      ) : data.length === 0 ? (
+        <LoadingMessage>
+          데이터가 없습니다. 백엔드를 활성화해주세요😊
+        </LoadingMessage> // 백엔드가 없을 때 표시
       ) : (
         <JobList>
           {data.map((item, index) => (
@@ -46,19 +52,21 @@ const JobInfo = () => {
 // 스타일링
 const Container = styled.div`
   font-weight: bold;
-  padding: 40px;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
 const Header = styled.h1`
+  font-size: 32px;
+  margin-bottom: 10px;
+  font-family: "Noto-B";
   text-align: center;
   color: #333;
 `;
 
 const LoadingMessage = styled.p`
+  margin-top: 30px;
   text-align: center;
   font-size: 18px;
   color: #666;
