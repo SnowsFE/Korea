@@ -6,7 +6,7 @@ const ImageBox = styled.div`
   height: 170px;
   border: 1px solid #ddd;
   background-size: cover;
-  background-image: url("/images/bg.jpg"); /* 여기에 다른 이미지 URL을 넣을 수 있음 */
+  background-image: url("/images/bg.jpg");
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
 
