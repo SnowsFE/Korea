@@ -66,7 +66,7 @@ const Header = styled.h1`
 `;
 
 const LoadingMessage = styled.p`
-  margin-top: 30px;
+  margin-top: 50px;
   text-align: center;
   font-size: 18px;
   color: #666;

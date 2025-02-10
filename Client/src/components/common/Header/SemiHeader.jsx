@@ -38,17 +38,7 @@ const SemiHeader = () => {
             )}
           </NavItem>
 
-          <NavItem
-            onMouseEnter={() => setDropdown("community")}
-            onMouseLeave={() => setDropdown(null)}
-          >
-            커뮤니티
-            {dropdown === "community" && (
-              <DropdownMenu
-                onClick={() => navigate("/freeboard")}
-              ></DropdownMenu>
-            )}
-          </NavItem>
+          <NavItem onClick={() => navigate("/boards")}>커뮤니티</NavItem>
 
           <NavItem
             onMouseEnter={() => setDropdown("info")}
