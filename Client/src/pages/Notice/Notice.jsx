@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import NoticesList from "./NoticeList";
-import NoticesDetail from "./NoticeDetail";
+import NoticesList from "./NoticeInfo/NoticeList";
+import NoticesDetail from "./NoticeInfo/NoticeDetail";
 
 function Notice() {
   return (

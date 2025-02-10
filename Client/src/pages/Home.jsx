@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <Section>
       <Body>
-        <Main/>
+        <Main />
       </Body>
     </Section>
   );
@@ -14,7 +14,7 @@ const Home = () => {
 
 export default Home;
 
-const Section = styled.div`
+const Section = styled.section`
   width: 100%;
 `;
 
