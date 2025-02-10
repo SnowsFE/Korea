@@ -52,6 +52,7 @@ const Section = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 30px;
+  padding-top: 70px;
 
   img {
     width: 137px;

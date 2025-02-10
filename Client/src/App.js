@@ -1,16 +1,16 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import HeaderLayout from "./components/common/HeaderLayout";
+import CommonLayout from "./components/common/Layout/CommonLayout";
+import Layout from "./components/common/Layout/Layout";
 import Notice from "./pages/Notice/Notice";
 import Event from "./pages/Event/Event";
 import Board from "./components/Board/Boards";
-import Layout from "./components/common/Layout";
 
 function App() {
   return (
     <Router>
-      <HeaderLayout />
+      <CommonLayout />
       <Routes>
         <Route element={<Layout />}>
           {/* Layout을 공통으로 적용 */}

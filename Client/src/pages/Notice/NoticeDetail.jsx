@@ -15,7 +15,7 @@ const NoticesDetail = () => {
   }
 
   return (
-    <Container>
+    <Section>
       <DarkBackground />
       <Content>
         <TopBar>
@@ -33,13 +33,13 @@ const NoticesDetail = () => {
         <Image src={Notice.image} alt={Notice.title} />
         <PostContent>{Notice.content}</PostContent>
       </Content>
-    </Container>
+    </Section>
   );
 };
 
 export default NoticesDetail;
 
-const Container = styled.div`
+const Section = styled.section`
   width: 100%;
   position: relative;
   margin-bottom: 20px;
