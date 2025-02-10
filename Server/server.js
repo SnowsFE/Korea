@@ -10,7 +10,7 @@ app.use(express.json());
 // Routes
 const apiRoutes = require("./routes/apiRoutes");
 
-// Use
+// 경로
 app.use("/api", apiRoutes);
 
 // 서버 시작
