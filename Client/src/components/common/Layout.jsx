@@ -1,17 +1,18 @@
 import React from "react";
-import Header from "./Header/TopHeader";
+import { Outlet } from "react-router-dom";
 import styled from "styled-components";
-import SemiHeader from "./Header/SemiHeader";
 
 const Layout = () => {
   return (
     <Section>
-      <Header />
-      <SemiHeader />
+      <Outlet /> {/* 현재 URL에 맞는 컴포넌트가 여기에 렌더링됨 */}
     </Section>
   );
 };
 
 export default Layout;
 
-const Section = styled.div``;
+const Section = styled.div`
+  max-width: 1280px;
+  margin: 0 auto;
+`;
