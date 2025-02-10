@@ -6,8 +6,9 @@
 }
 
 body {
+  position: relative;
+  min-height: 120vh;
   margin: 0 auto;
-  padding: 70px 0;
   background-color: var(--Bgcolor);
 }
 

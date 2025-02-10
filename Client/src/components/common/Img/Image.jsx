@@ -5,10 +5,12 @@ const ImageBox = styled.div`
   width: 220px;
   height: 170px;
   border: 1px solid #ddd;
+  border-radius: 10px;
   background-size: cover;
-  background-image: url("/images/bg.jpg");
+  background-image: ${({ bg }) => `url(${bg})`}; /* 동적으로 이미지 적용 */
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
+  object-fit: cover;
 
   ${({ top }) => top && `top: ${top};`}
   ${({ bottom }) => bottom && `bottom: ${bottom};`}
@@ -20,10 +22,10 @@ const Bg = () => {
   return (
     <Bgimg>
       <img src="/images/bg.jpg" alt="Bg" />
-      <ImageBox top="30%" left="35%" />
-      <ImageBox top="30%" left="60%" />
-      <ImageBox top="60%" left="30%" />
-      <ImageBox top="60%" left="60%" />
+      <ImageBox top="30%" left="35%" bg="/images/cover.jpg" />
+      <ImageBox top="30%" left="60%" bg="/images/cover.jpg" />
+      <ImageBox top="60%" left="30%" bg="/images/cover.jpg" />
+      <ImageBox top="60%" left="60%" bg="/images/cover.jpg" />
     </Bgimg>
   );
 };
@@ -36,12 +38,13 @@ const Bgimg = styled.div`
 
   img {
     width: 100%;
+    height: 720px;
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
   }
 
   &:hover img {
-    opacity: 1;
+    opacity: 0.95;
   }
 
   &:hover ${ImageBox} {
