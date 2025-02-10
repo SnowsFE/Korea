@@ -7,9 +7,9 @@ const Main_ServiceData = [
     },
     {
         id: 2,
-        title: "수강신청",
+        title: "교육원 정보",
         image: "/images/Lecture.svg",
-        content: "원하는 강의 신청",
+        content: "교육원 소개 및 정보",
     },
 ];
 
