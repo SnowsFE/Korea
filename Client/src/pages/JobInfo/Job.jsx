@@ -12,7 +12,7 @@ const JobInfo = () => {
     axios
       .get(API_URL)
       .then((response) => {
-        const jobData = response.data?.TnNetworkLstOpen?.row || [];
+        const jobData = response.data?.DATA || [];
         setData(jobData);
         setLoading(false);
       })
@@ -21,6 +21,7 @@ const JobInfo = () => {
         setLoading(false);
       });
   }, []);
+
   return (
     <Container>
       <Header>
@@ -36,11 +37,13 @@ const JobInfo = () => {
       ) : (
         <JobList>
           {data.map((item, index) => (
-            <JobItem key={index}>
-              <SiteName>{item.SITE_NM[0]}</SiteName>
-              <SiteLink href={item.SITE_ADDR[0]} target="_blank">
-                {item.SITE_ADDR[0]}
-              </SiteLink>
+            <JobItem key={index} href={item.site_addr} target="_blank">
+              <ImageArea>
+                <img src={item.site_img} alt={item.site_nm} />
+              </ImageArea>
+
+              <SiteName>{item.site_nm}</SiteName>
+              <SiteLink>{item.site_addr}</SiteLink>
             </JobItem>
           ))}
         </JobList>
@@ -74,22 +77,26 @@ const LoadingMessage = styled.p`
 
 const JobList = styled.div`
   margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); // 3개씩 한 줄로 배치
+  gap: 20px; // 카드 간 간격 설정
   width: 100%;
+  max-width: 1200px; // 최대 너비 설정
 `;
 
-const JobItem = styled.div`
+const JobItem = styled.a`
   background-color: white;
-  margin: 10px 0;
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  max-width: 600px;
-  width: 90%;
   cursor: pointer;
+  text-decoration: none; // 링크 기본 스타일 제거
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 300px; // 세로 크기 크게 설정
 
   &:hover {
     transform: translateY(-5px);
@@ -97,22 +104,31 @@ const JobItem = styled.div`
   }
 `;
 
+const ImageArea = styled.div`
+  width: 100%;
+  border: 1px solid #f1f1f1;
+  border-radius: 5px;
+  margin-bottom: 15px;
+
+  img {
+    width: 350px;
+    height: 180px; // 이미지 영역 크기 설정
+  }
+`;
+
 const SiteName = styled.h3`
+  font-family: "Money-Graphy";
+  font-weight: 300;
   font-size: 22px;
-  color: #007bff;
+  color: #333;
   margin-bottom: 8px;
 `;
 
-const SiteLink = styled.a`
-  display: block;
+const SiteLink = styled.p`
+  font-family: "Noto-B";
   font-size: 16px;
-  color: #007bff;
-  text-decoration: none;
+  color: #ccc;
   word-wrap: break-word;
-
-  &:hover {
-    text-decoration: underline;
-  }
 `;
 
 export default JobInfo;

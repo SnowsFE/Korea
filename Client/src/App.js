@@ -7,6 +7,7 @@ import Notice from "./pages/Notice/Notice";
 import Event from "./pages/Event/Event";
 import Board from "./components/Board/Boards";
 import JobApi from "./pages/JobInfo/Job";
+import Test from "./pages/Test/TestInfo";
 
 function App() {
   return (
@@ -19,8 +20,9 @@ function App() {
           <Route path="boards/*" element={<Board />} />
           <Route path="notice/*" element={<Notice />} />
           <Route path="job/*" element={<JobApi />} />
+          <Route path="test" element={<Test />} />
         </Route>
-        <Route path="/event/*" element={<Event />} />{" "}
+        <Route path="/event/*" element={<Event />} />
         {/* Layout 없이 개별 렌더링 */}
       </Routes>
     </Router>

@@ -1,0 +1,47 @@
+{
+  "DESCRIPTION": {
+    "SITE_NM": "기관명",
+    "SITE_IMG": "이미지",
+    "SITE_ADDR": "사이트주소",
+    "SITE_GUBUN": "사이트구분"
+  },
+  "DATA": [
+    {
+      "site_nm": "워크넷",
+      "site_img": "/images/worknet.jpg",
+      "site_addr": "http://www.work.go.kr",
+      "site_gubun": "취업포털"
+    },
+    {
+      "site_nm": "사람인",
+      "site_img": "/images/saramin.jpg",
+      "site_addr": "http://www.saramin.co.kr",
+      "site_gubun": "취업포털"
+    },
+    {
+      "site_nm": "잡코리아",
+      "site_img": "/images/jobkorea.jpg",
+      "site_addr": "http://www.jobkorea.co.kr",
+      "site_gubun": "취업포털"
+    },
+
+    {
+      "site_nm": "파인드잡",
+      "site_img": "/images/findjob.jpg",
+      "site_addr": "http://findjob.co.kr",
+      "site_gubun": "취업포털"
+    },
+    {
+      "site_nm": "인크루트",
+      "site_img": "/images/incruit.jpg",
+      "site_addr": "http://www.incruit.co.kr",
+      "site_gubun": "취업포털"
+    },
+    {
+      "site_nm": "커리어",
+      "site_img": "/images/career.jpg",
+      "site_addr": "http://www.career.co.kr",
+      "site_gubun": "취업포털"
+    }
+  ]
+}
