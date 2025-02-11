@@ -22,6 +22,12 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Money-Graphy";
+  src: url("../public/fonts/MoneygraphyRounded.ttf") format("truetype");
+  font-style: normal;
+}
+
 html,
 body,
 div,
@@ -150,7 +156,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
+  content: "";
   content: none;
 }
 
@@ -162,7 +168,7 @@ table {
 .clearfix::after {
   content: "";
   display: table;
-  clear: both
+  clear: both;
 }
 
 .hidden {
@@ -189,9 +195,9 @@ a:active {
 }
 
 a {
-  color: inherit
+  color: inherit;
 }
 
 body {
-  font-family: "Noto-L", "Noto-M", "Noto-SB", "Noto-B";
+  font-family: "Noto-L", "Noto-M", "Noto-SB", "Noto-B", "Money-Graphy";
 }
