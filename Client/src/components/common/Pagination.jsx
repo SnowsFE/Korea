@@ -27,9 +27,7 @@ const Pagination = ({ data, pagePer, groupSize = 5, onPageChange }) => {
   return (
     <ButtonBox>
       <Buttons>
-        <Prev onClick={prevGroup} disabled={currentGroup === 1}>
-          <img src="/images/LeftArrow.png" alt="LeftArrow" />
-        </Prev>
+        <Prev onClick={prevGroup} disabled={currentGroup === 1} />
         <Button>
           {Array.from({
             length: Math.min(
@@ -49,9 +47,7 @@ const Pagination = ({ data, pagePer, groupSize = 5, onPageChange }) => {
             );
           })}
         </Button>
-        <Next onClick={nextGroup} disabled={currentGroup === totalGroups}>
-          <img src="/images/RightArrow.png" alt="RightArrow" />
-        </Next>
+        <Next onClick={nextGroup} disabled={currentGroup === totalGroups} />
       </Buttons>
     </ButtonBox>
   );
@@ -64,11 +60,6 @@ const ButtonBox = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 16px;
-
-  img {
-    opacity: 0.7;
-    width: 12px;
-  }
 `;
 
 const Buttons = styled.div`
@@ -79,15 +70,19 @@ const Buttons = styled.div`
 `;
 
 const Prev = styled.button`
-  padding: 8px 12px;
-  border-radius: 50%;
-  border: none;
-  background-color: #e0e0e0;
-  font-size: 18px;
+  font-family: "Noto-SB";
+  padding: 0 5px;
+  border-radius: 3px;
+  min-width: 28px;
+  height: 28px;
+  line-height: 28px;
+  border: 1px solid #e1e1e1;
+  background-color: #ffffff;
+  background: url(/images/btn_prev.gif) no-repeat center #fff;
+  font-size: 12px;
   cursor: pointer;
 
   &:disabled {
-    opacity: 0.2;
     cursor: not-allowed;
   }
 `;
@@ -98,24 +93,33 @@ const Button = styled.div`
 `;
 
 const InnerButton = styled.button`
-  padding: 10px 14px;
-  border-radius: 12px;
+  font-family: "Noto-SB";
+  padding: 0 5px;
+  font-size: 12px;
+  border-radius: 3px;
+  min-width: 28px;
+  height: 28px;
+  line-height: 28px;
   border: none;
-  background-color: ${(props) => (props.active ? "#16be78" : "#f0f0f0")};
-  color: ${(props) => (props.active ? "white" : "#333")};
+  background-color: ${(props) => (props.active ? "var(--dark)" : "#f2f2f2")};
+  color: ${(props) => (props.active ? "#ffffff" : "var(--gray)")};
   cursor: pointer;
 `;
 
 const Next = styled.button`
-  padding: 8px 12px;
-  border-radius: 50%;
-  border: none;
-  background-color: #e0e0e0;
-  font-size: 18px;
+  font-family: "Noto-SB";
+  padding: 0 5px;
+  border-radius: 3px;
+  min-width: 28px;
+  height: 28px;
+  line-height: 28px;
+  border: 1px solid #e1e1e1;
+  background-color: #ffffff;
+  background: url(/images/btn_next.gif) no-repeat center #fff;
+  font-size: 12px;
   cursor: pointer;
 
   &:disabled {
-    opacity: 0.2;
     cursor: not-allowed;
   }
 `;
