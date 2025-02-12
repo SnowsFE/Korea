@@ -1,9 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 
 const TestInfo = () => {
   const [jobInfo, setJobInfo] = useState(null);
   const [error, setError] = useState(null);
+  const [count, setCount] = useState(0);
+
+  // useCallback을 사용하면 d 함수가 매 렌더링마다 재생성되지 않음
+  const d = useCallback(() => {
+    setCount((prev) => prev + 1);
+  }, []);
 
   useEffect(() => {
     // 백엔드 API 경로로 요청
@@ -28,8 +34,15 @@ const TestInfo = () => {
 
   return (
     <div>
-      <h1>취업 정보</h1>
-      <pre>{JSON.stringify(jobInfo, null, 2)}</pre>
+      <h1 onClick={d}>취업 정보</h1>
+      <h2>{count}</h2>
+      <ul>
+        {jobInfo.map((item) => (
+          <li key={item.job}>
+            {item.job} - {item.location}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
