@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { useQuery, ReactQueryDevtools } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 // API URL 설정
 const API_URL = "http://localhost:5000/api/job-info";
