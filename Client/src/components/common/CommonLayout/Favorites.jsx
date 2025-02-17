@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Button, Modal } from "react-bootstrap"; // react-bootstrap에서 Modal, Button 사용
+import "bootstrap/dist/css/bootstrap.min.css"; // 부트스트랩 스타일 임포트
 import styled from "styled-components";
 
 const Favorites = () => {
@@ -8,16 +10,29 @@ const Favorites = () => {
     setView(true);
   };
 
+  const closeModal = () => {
+    setView(false);
+  };
+
   return (
     <div>
-      {view && (
-        <ModalOverlay onClick={() => setView(false)}>
-          <ModalContent onClick={(e) => e.stopPropagation()}>
-            <img src="/images/Semi.jpg" alt="Semi.jpg" />
-            <CloseButton onClick={() => setView(false)}>닫기</CloseButton>
-          </ModalContent>
-        </ModalOverlay>
-      )}
+      {/* 모달 */}
+      <Modal show={view} onHide={closeModal} centered>
+        <Modal.Body onClick={(e) => e.stopPropagation()}>
+          <img
+            src="/images/Semi.jpg"
+            alt="Semi.jpg"
+            style={{ width: "100%", maxWidth: "1200px", height: "auto" }}
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={closeModal}>
+            닫기
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* 즐겨찾기 버튼 */}
       <FixedStar onClick={addFavorites}>
         <img src="/images/star.png" alt="Favorites" />
       </FixedStar>
@@ -27,62 +42,21 @@ const Favorites = () => {
 
 export default Favorites;
 
+// FixedStar 버튼 스타일링
 const FixedStar = styled.section`
-  z-index: 1000;
   position: fixed;
-  bottom: 0;
-  left: 0;
+  bottom: 30px;
+  left: 30px;
   padding: 25px;
+  z-index: 1000;
 
   img {
     width: 64px;
     cursor: pointer;
+    transition: 0.1s ease-in-out;
   }
 
   img:hover {
     transform: scale(1.05);
-    transition: 0.1s ease-in-out;
   }
-`;
-
-// 모달 스타일
-const ModalOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-`;
-
-const ModalContent = styled.div`
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  position: relative;
-  max-width: 90%;
-  max-height: 90%;
-  overflow: auto;
-
-  img {
-    width: 100%;
-    max-width: 1200px;
-    height: auto;
-  }
-`;
-
-const CloseButton = styled.button`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: #ff5f5f;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 5px;
 `;
