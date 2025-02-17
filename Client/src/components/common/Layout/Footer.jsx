@@ -22,10 +22,9 @@ const Footer = () => {
 
 const FooterContainer = styled.footer`
   width: 100%;
-  position: absolute;
-  bottom: 0;
   background-color: #333;
   color: white;
+  margin-top: 70px;
   padding: 20px 0;
   text-align: center;
   font-size: 14px;

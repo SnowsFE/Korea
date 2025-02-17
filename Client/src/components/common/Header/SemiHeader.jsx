@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 const SemiHeader = () => {
   const [view, setView] = useState(false);
-  const [dropdown, setDropdown] = useState(null);
   const navigate = useNavigate();
 
   const goHome = () => {
@@ -21,46 +20,25 @@ const SemiHeader = () => {
 
         {/* GNB 메뉴 */}
         <Nav>
-          <NavItem
-            onMouseEnter={() => setDropdown("support")}
-            onMouseLeave={() => setDropdown(null)}
-          >
-            학습지원
-            {dropdown === "support" && (
-              <DropdownMenu>
-                <DropdownItem onClick={() => navigate("/learning-materials")}>
-                  학습자료
-                </DropdownItem>
-                <DropdownItem onClick={() => navigate("/qna")}>
-                  Q&A
-                </DropdownItem>
-              </DropdownMenu>
-            )}
+          <NavItem onClick={() => navigate("/free-course")}>
+            무료수강
+            <HotText>Hot</HotText>
           </NavItem>
 
-          <NavItem onClick={() => navigate("/boards")}>커뮤니티</NavItem>
-
-          <NavItem
-            onMouseEnter={() => setDropdown("info")}
-            onMouseLeave={() => setDropdown(null)}
-          >
-            정보
-            {dropdown === "info" && (
-              <DropdownMenu>
-                <DropdownItem onClick={() => navigate("/event")}>
-                  이벤트
-                </DropdownItem>
-                <DropdownItem onClick={() => navigate("/notice")}>
-                  공지사항
-                </DropdownItem>
-              </DropdownMenu>
-            )}
+          <NavItem onClick={() => navigate("/job")}>
+            취업
+            <HotText>Hot</HotText>
           </NavItem>
 
-          <NavItem onClick={() => navigate("/job")}>취업활동</NavItem>
+          <NavItem onClick={() => navigate("/boards")}>
+            커뮤니티<NText>N</NText>
+          </NavItem>
+
+          <NavItem onClick={() => navigate("/event")}>
+            이벤트<NText>N</NText>
+          </NavItem>
         </Nav>
         <img src="/images/Data.png" alt="Data" />
-        {/* View 이미지 (교육원맵 오른쪽 배치) */}
         <View onClick={() => setView(true)} style={{ cursor: "pointer" }}>
           <img src="/images/fixedIcon.png" alt="fixedIcon.png" />
         </View>
@@ -83,6 +61,7 @@ export default SemiHeader;
 
 // 스타일링
 const Section = styled.div`
+  font-family: "Noto-B";
   height: calc(100% - 45px);
   padding: 50px 0 15px 0;
   margin-bottom: 50px;
@@ -117,33 +96,55 @@ const NavItem = styled.div`
   position: relative;
   font-size: 18px;
   cursor: pointer;
-  padding: 10px;
+  padding: 10px 35px;
   color: #333;
-  font-weight: bold;
 
   &:hover {
-    color: #007bff;
+    color: var(--MainColor);
   }
 `;
 
-const DropdownMenu = styled.div`
+const HotText = styled.span`
+  font-family: "Money-Graphy";
   position: absolute;
-  top: 100%;
-  left: 0;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  overflow: hidden;
+  margin-left: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #ff0000; /* 빨간색 */
+  animation: flash 1s infinite;
+
+  @keyframes flash {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 `;
 
-const DropdownItem = styled.div`
-  padding: 10px 15px;
-  cursor: pointer;
-  white-space: nowrap;
+const NText = styled.span`
+  font-family: "Money-Graphy";
+  position: absolute;
+  margin-left: 5px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--MainColor);
+  animation: flash 1s infinite;
 
-  &:hover {
-    background: #f4f4f4;
+  @keyframes flash {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 `;
 
