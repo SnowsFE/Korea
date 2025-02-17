@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Home from "./pages/Home";
-import CommonLayout from "./components/common/Header/HeaderLayout";
+import CommonLayout from "./components/common/CommonLayout/CommonLayout";
 import Layout from "./components/common/Layout/Layout";
 import Notice from "./pages/Notice/Notice";
 import Event from "./pages/Event/Event";
