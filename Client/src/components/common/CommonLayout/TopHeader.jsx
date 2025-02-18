@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import Favorites from "./Favorites";
 
 const Header = () => {
   const data = [
@@ -57,6 +58,7 @@ const Header = () => {
         <Right>
           <LoginState>로그인</LoginState>
           <JoinState>회원가입</JoinState>
+          <Favorites />
         </Right>
       </Container>
     </Section>
@@ -66,11 +68,7 @@ const Header = () => {
 export default Header;
 
 const Section = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  z-index: 99;
   display: flex;
   justify-content: center;
   color: var(--textColor);
@@ -78,6 +76,7 @@ const Section = styled.div`
   box-sizing: border-box;
   font-family: "Noto-SB";
   font-size: 14px;
+  height: 44px;
 `;
 
 const Container = styled.div`
@@ -118,7 +117,7 @@ const Bullet = styled.span`
 `;
 
 const TextWrapper = styled.div`
-  height: 16px; /* 텍스트 한 줄의 높이 */
+  height: 22px; /* 텍스트 한 줄의 높이 */
   overflow: hidden; /* 넘치는 텍스트 숨김 */
 `;
 

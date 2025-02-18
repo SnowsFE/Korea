@@ -1,10 +1,10 @@
 import React from "react";
-import Bg from "../../components/common/Img/Image";
+import EventImg from "../../components/common/Img/EventImg";
 
 const EventList = () => {
   return (
     <>
-      <Bg />
+      <EventImg />
     </>
   );
 };

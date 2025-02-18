@@ -49,7 +49,6 @@ export default SemiHeader;
 const Section = styled.div`
   font-family: "Noto-B";
   height: calc(100% - 45px);
-  padding: 50px 0 15px 0;
   margin-bottom: 50px;
   border-bottom: 1px solid var(--line);
   background: #fff;
@@ -66,6 +65,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 90px;
 `;
 
 const Image = styled.div`
