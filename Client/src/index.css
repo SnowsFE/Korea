@@ -28,6 +28,21 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "esamanru-B";
+  src: url("../public/fonts/esamanru-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "esamanru-M";
+  src: url("../public/fonts/esamanru-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "esamanru-L";
+  src: url("../public/fonts/esamanru-Light.ttf") format("truetype");
+}
+
 html,
 body,
 div,
@@ -199,5 +214,6 @@ a {
 }
 
 body {
-  font-family: "Noto-L", "Noto-M", "Noto-SB", "Noto-B", "Money-Graphy";
+  font-family: "Noto-L", "Noto-M", "Noto-SB", "Noto-B", "Money-Graphy",
+    "esamanru-B", "esamanru-M", "esamanru-L";
 }

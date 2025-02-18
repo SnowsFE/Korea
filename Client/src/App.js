@@ -11,7 +11,6 @@ import JobApi from "./pages/JobInfo/Job";
 import Test from "./pages/Test/TestInfo";
 import Footer from "./components/common/Layout/Footer";
 import NotFound from "./components/common/NotFound";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 // React Query 클라이언트 생성
 const queryClient = new QueryClient();

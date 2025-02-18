@@ -1,62 +1,89 @@
-import React, { useState } from "react";
-import { Button, Modal } from "react-bootstrap"; // react-bootstrap에서 Modal, Button 사용
-import "bootstrap/dist/css/bootstrap.min.css"; // 부트스트랩 스타일 임포트
-import styled from "styled-components";
+import React from "react";
+import { useToast, Image, Text } from "@chakra-ui/react";
 
 const Favorites = () => {
-  const [view, setView] = useState(false);
+  const toast = useToast(); // Toast 훅 사용
 
-  const addFavorites = () => {
-    setView(true);
-  };
+  // 화면 크기에 따른 toast 메시지
+  const handleClick = () => {
+    const isMobile = window.innerWidth <= 768; // 768px 이하를 모바일로 간주
 
-  const closeModal = () => {
-    setView(false);
+    // 모바일용 메시지
+    if (isMobile) {
+      toast({
+        title: (
+          <Text
+            fontFamily="'esamanru-M', sans-serif"
+            fontSize="18px"
+            fontWeight="100"
+            color="var(--textColor)"
+            marginTop="1px"
+          >
+            홈 화면에 추가하기
+          </Text>
+        ),
+        description: (
+          <Text
+            fontFamily="'esamanru-L', sans-serif"
+            fontSize="14px"
+            color="var(--textColor)"
+            marginTop="2px"
+          >
+            빠른 접속을 원하시면 화면 하단의 공유 버튼을 눌러 '홈 화면에 추가'를
+            선택하세요!
+          </Text>
+        ),
+        status: "info",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+        variant: "solid",
+      });
+    } else {
+      // 데스크탑용 메시지
+      toast({
+        title: (
+          <Text
+            fontFamily="'esamanru-M', sans-serif"
+            fontSize="20px"
+            fontWeight="100"
+            color="var(--textColor)"
+            marginTop="1px"
+          >
+            즐겨찾기 방법 안내
+          </Text>
+        ),
+        description: (
+          <Text
+            fontFamily="'esamanru-L', sans-serif"
+            fontSize="14px"
+            color="var(--textColor)"
+            marginTop="2px"
+          >
+            Ctrl + D를 눌러 즐겨찾기 꾸욱 ~ 🎉
+          </Text>
+        ),
+        status: "info",
+        duration: 4000,
+        isClosable: true,
+        position: "top",
+        variant: "solid",
+      });
+    }
   };
 
   return (
     <div>
-      {/* 모달 */}
-      <Modal show={view} onHide={closeModal} centered>
-        <Modal.Body onClick={(e) => e.stopPropagation()}>
-          <img
-            src="/images/Semi.jpg"
-            alt="Semi.jpg"
-            style={{ width: "100%", maxWidth: "1200px", height: "auto" }}
-          />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="danger" onClick={closeModal}>
-            닫기
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
-      {/* 즐겨찾기 버튼 */}
-      <FixedStar onClick={addFavorites}>
-        <img src="/images/star.png" alt="Favorites" />
-      </FixedStar>
+      {/* 스타 이미지 버튼 클릭 시 Toast 띄우기 */}
+      <Image
+        src="/images/star.png"
+        alt="Star"
+        boxSize="24px"
+        cursor="pointer"
+        onClick={handleClick} // 클릭 시 Toast 이벤트
+      />
     </div>
   );
 };
 
 export default Favorites;
-
-// FixedStar 버튼 스타일링
-const FixedStar = styled.section`
-  position: fixed;
-  bottom: 30px;
-  left: 30px;
-  padding: 25px;
-  z-index: 1000;
-
-  img {
-    width: 64px;
-    cursor: pointer;
-    transition: 0.1s ease-in-out;
-  }
-
-  img:hover {
-    transform: scale(1.05);
-  }
-`;
