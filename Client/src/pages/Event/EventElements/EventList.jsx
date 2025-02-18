@@ -1,5 +1,5 @@
 import React from "react";
-import EventImg from "../../components/common/Img/EventImg";
+import EventImg from "./EventImg";
 
 const EventList = () => {
   return (

@@ -1,12 +1,10 @@
 import { Routes, Route } from "react-router-dom";
-import EventList from "./EventList";
-// import EventDetail from "./EventDetail";
+import EventList from "./EventElements/EventList";
 
 function Event() {
   return (
     <Routes>
       <Route path="/" element={<EventList />} />
-      {/* <Route path="/:id" element={<EventDetail />} /> */}
     </Routes>
   );
 }
