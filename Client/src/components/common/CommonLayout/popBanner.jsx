@@ -49,7 +49,7 @@ const PopBanner = () => {
         borderRadius="xl"
         overflow="hidden"
         boxShadow="lg"
-        p={7} // 전체 패딩 추가
+        p={4}
       >
         {/* 제목 섹션 */}
         <Box bg="white" p={4} borderBottom="1px solid var(--line)">
@@ -62,25 +62,35 @@ const PopBanner = () => {
             >
               🔥 100% 무료 수강 기회! 클릭하고 시작하기
             </Text>
-            <ModalCloseButton onClick={closeBanner} color="var(--textdark)" />
+            <ModalCloseButton
+              onClick={closeBanner}
+              color="var(--textdark)"
+              autoFocus={false}
+            />
           </Flex>
         </Box>
 
         {/* 이미지 섹션 */}
-        <Box position="relative">
+        <Box
+          position="relative"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
           <Image
             src="/images/popBanner.png"
             alt="팝업 배너"
             borderRadius="lg"
             cursor="pointer"
             onClick={goHref}
-            width="100%" // 이미지가 전체 영역을 차지하도록 설정
+            width="auto" // 100%를 사용하지 않고 자동으로 너비 설정
+            maxWidth="600px" // 최대 너비를 설정하여 크기를 제한
           />
           {/* 클릭 유도 애니메이션 */}
           <MotionBox
             position="absolute"
             top="10%"
-            left="75%"
+            left="73%"
             transform="translate(-50%, -50%)"
             fontFamily="Money-Graphy"
             color="var(--textDark)"
