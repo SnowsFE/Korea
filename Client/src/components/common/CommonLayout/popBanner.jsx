@@ -65,7 +65,7 @@ const PopBanner = () => {
             <ModalCloseButton
               onClick={closeBanner}
               color="var(--textdark)"
-              autoFocus={false}
+              tabIndex={-1}
             />
           </Flex>
         </Box>
@@ -79,12 +79,14 @@ const PopBanner = () => {
         >
           <Image
             src="/images/popBanner.png"
+            decoding="async"
             alt="팝업 배너"
             borderRadius="lg"
             cursor="pointer"
             onClick={goHref}
             width="auto" // 100%를 사용하지 않고 자동으로 너비 설정
             maxWidth="600px" // 최대 너비를 설정하여 크기를 제한
+            style={{ objectFit: "contain" }}
           />
           {/* 클릭 유도 애니메이션 */}
           <MotionBox
@@ -123,7 +125,12 @@ const PopBanner = () => {
                   type="radio"
                   checked={hideFor24Hours}
                   onChange={handleRadioChange}
-                  style={{ marginRight: "8px", cursor: "pointer" }}
+                  style={{
+                    marginRight: "10px",
+                    cursor: "pointer",
+                    transform: "translateY(1px)",
+                  }}
+                  tabIndex={-1}
                 />
                 24시간 보지 않기
               </label>
