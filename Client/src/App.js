@@ -10,7 +10,6 @@ import { useEffect } from "react";
 import Home from "./pages/Home";
 import CommonLayout from "./components/common/CommonLayout/CommonLayout";
 import Layout from "./components/common/Layout/Layout";
-import Notice from "./pages/Notice/Notice";
 import Event from "./pages/Event/Event";
 import Board from "./components/Board/Boards";
 import JobApi from "./pages/JobInfo/Job";
@@ -58,7 +57,6 @@ function App() {
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="boards/*" element={<Board />} />
-            <Route path="notice/*" element={<Notice />} />
             <Route path="job/*" element={<JobApi />} />
             <Route path="test" element={<Test />} />
           </Route>
