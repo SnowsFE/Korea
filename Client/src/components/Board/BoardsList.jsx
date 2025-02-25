@@ -266,7 +266,7 @@ const HeaderCell = styled.div`
 const BoardItem = styled.div`
   display: grid;
   grid-template-columns: 50% 15% 15% 10% 10%;
-  padding: 1.26rem 0.5rem;
+  padding: 1.1rem 0.5rem;
   border-bottom: 1px solid #ddd;
   align-items: center;
   text-align: center;
