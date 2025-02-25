@@ -12,7 +12,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const MotionBox = motion(Box);
+const MotionBox = motion.create(Box);
 
 const PopBanner = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -70,6 +70,7 @@ const PopBanner = () => {
           </Flex>
         </Box>
 
+        {/* <link rel="preload" href="/images/popBanner.png" as="image" /> */}
         {/* 이미지 섹션 */}
         <Box
           position="relative"

@@ -71,11 +71,18 @@ const Container = styled.div`
 `;
 
 const Header = styled.h1`
+  display: flex;
+  align-items: center;
+  gap: 5px;
   font-size: 32px;
   margin-bottom: 10px;
   font-family: "Noto-B";
   text-align: center;
   color: #333;
+
+  img {
+    transform: translateY(-23%);
+  }
 `;
 
 const LoadingMessage = styled.p`

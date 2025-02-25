@@ -13,6 +13,6 @@ const Layout = () => {
 export default Layout;
 
 const Section = styled.section`
-  max-width: 1280px;
+  max-width: 1400px;
   margin: 0 auto;
 `;

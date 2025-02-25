@@ -40,7 +40,7 @@ const Pagination = ({ data, pagePer, groupSize = 5, onPageChange }) => {
               <InnerButton
                 key={pageNumber}
                 onClick={() => changePage(pageNumber)}
-                active={page === pageNumber}
+                $active={page === pageNumber} // 속성 이름 변경
               >
                 {pageNumber}
               </InnerButton>
@@ -59,13 +59,12 @@ const ButtonBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 16px;
+  margin-top: 24px;
 `;
 
 const Buttons = styled.div`
   display: flex;
   align-items: center;
-
   gap: 10px;
 `;
 
@@ -101,8 +100,10 @@ const InnerButton = styled.button`
   height: 28px;
   line-height: 28px;
   border: none;
-  background-color: ${(props) => (props.active ? "var(--dark)" : "#f2f2f2")};
-  color: ${(props) => (props.active ? "#ffffff" : "var(--gray)")};
+  background-color: ${(props) =>
+    props.$active ? "var(--dark)" : "#f2f2f2"}; // props.$active로 변경
+  color: ${(props) =>
+    props.$active ? "#ffffff" : "var(--gray)"}; // props.$active로 변경
   cursor: pointer;
 `;
 

@@ -1,34 +1,47 @@
-// 정렬 옵션 컴포넌트 : 공지사항 -
-// 최신, 인기, TOP 10
-// SortOptions.jsx
-import React from "react";
 import styled from "styled-components";
 
-const SortOptions = ({ onSort }) => {
+const SortOptions = ({ currentSort, onSortChange }) => {
   return (
     <SortContainer>
-      <SortButton onClick={() => onSort("latest")}>최신순</SortButton>
-      <SortButton onClick={() => onSort("popular")}>인기순</SortButton>
-      <SortButton onClick={() => onSort("top")}>TOP 10</SortButton>
+      <SortButton
+        $active={currentSort === "latest"}
+        onClick={() => onSortChange("latest")}
+      >
+        🌱 최신
+      </SortButton>
+      <SortButton
+        $active={currentSort === "popular"}
+        onClick={() => onSortChange("popular")}
+      >
+        🔥 인기
+      </SortButton>
+      <SortButton
+        $active={currentSort === "top"}
+        onClick={() => onSortChange("top")}
+      >
+        🌌 TOP 10
+      </SortButton>
     </SortContainer>
   );
 };
 
 const SortContainer = styled.div`
+  font-size: 16px;
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 1rem;
+  margin: 1rem 0;
 `;
 
 const SortButton = styled.button`
-  padding: 8px 16px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background-color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 20px;
+  background: ${(props) => (props.$active ? "#16be78" : "#f1f3f5")};
+  color: ${(props) => (props.$active ? "white" : "black")};
   cursor: pointer;
 
   &:hover {
-    background-color: #f5f5f5;
+    background: ${(props) => (props.$active ? "#16be78" : "#dee2e6")};
   }
 `;
 
