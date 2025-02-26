@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
-const Pagination = ({ data, pagePer, groupSize = 5, onPageChange }) => {
-  const [page, setPage] = useState(1);
+const Pagination = ({
+  data,
+  pagePer,
+  groupSize = 5,
+  currentPage,
+  onPageChange,
+}) => {
   const totalPage = Math.ceil(data.length / pagePer);
-  const currentGroup = Math.ceil(page / groupSize);
+  const currentGroup = Math.ceil(currentPage / groupSize);
   const totalGroups = Math.ceil(totalPage / groupSize);
 
   const changePage = (newPage) => {
     if (newPage > 0 && newPage <= totalPage) {
-      setPage(newPage);
-      onPageChange(newPage);
+      onPageChange(newPage); // 부모 컴포넌트의 onPageChange 콜백 함수 호출
     }
   };
 
@@ -40,7 +44,7 @@ const Pagination = ({ data, pagePer, groupSize = 5, onPageChange }) => {
               <InnerButton
                 key={pageNumber}
                 onClick={() => changePage(pageNumber)}
-                $active={page === pageNumber} // 속성 이름 변경
+                $active={currentPage === pageNumber} // currentPage prop 사용
               >
                 {pageNumber}
               </InnerButton>
