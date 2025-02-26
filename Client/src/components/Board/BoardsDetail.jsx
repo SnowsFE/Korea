@@ -1,34 +1,57 @@
-// 게시글 상세 페이지
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Data from "./Data";
+import { useQuery } from "@tanstack/react-query";
 
 const BoardsDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // 게시글 데이터 찾기
-  const Boards = Data.find((item) => item.id === parseInt(id));
+  // React Query를 사용하여 데이터 가져오기
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["boardDetail", id],
+    queryFn: async () => {
+      const response = await fetch(`/boards/${id}`);
+      if (!response.ok) {
+        throw new Error("데이터를 불러오는데 실패했습니다.");
+      }
+      return response.json();
+    },
+  });
 
-  if (!Boards) {
-    return <NotFound>게시글을 찾을 수 없습니다?</NotFound>;
+  if (isLoading) return <Loading>Loading...</Loading>;
+  if (error) return <Error>에러가 발생했습니다: {error.message}</Error>;
+
+  if (!data) {
+    return <NotFound>게시글을 찾을 수 없습니다.</NotFound>;
   }
 
   return (
     <DetailContainer>
-      <Category>{Boards.category}</Category>
-      <Title>{Boards.title}</Title>
-      <Author>작성자: {Boards.author}</Author>
-      <Content>{Boards.content}</Content>
+      <Category>{data.category}</Category>
+      <Title>{data.title}</Title>
+      <Author>작성자: {data.author}</Author>
+      <Content>{data.content}</Content>
       <BackButton onClick={() => navigate(-1)}>← 목록으로 돌아가기</BackButton>
     </DetailContainer>
   );
 };
 
-export default BoardsDetail;
+const Loading = styled.div`
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+  color: #888;
+`;
 
-// 스타일링 개선
+const Error = styled.div`
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+  color: red;
+`;
+
+// 스타일링
 const DetailContainer = styled.div`
   max-width: 700px;
   margin: 30px auto;
@@ -67,6 +90,7 @@ const Content = styled.p`
   font-size: 16px;
   line-height: 1.6;
   color: #333;
+  margin-bottom: 20px;
 `;
 
 const BackButton = styled.button`
@@ -92,3 +116,5 @@ const NotFound = styled.div`
   color: #d9534f;
   font-weight: bold;
 `;
+
+export default BoardsDetail;

@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Pagination from "../common/Pagination";
 import SortOptions from "./SortOptions";
-import data from "./Data";
 import noticeData from "./NoticeData";
+import { useNavigate } from "react-router-dom";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const BoardList = () => {
+  const nav = useNavigate();
   const [currentSort, setCurrentSort] = useState("latest");
   const pagePer = 10;
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentData, setCurrentData] = useState([]);
-  const [popularPosts, setPopularPosts] = useState([]);
+  const queryClient = useQueryClient();
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -18,37 +19,51 @@ const BoardList = () => {
 
   const handleSortChange = (sortType) => {
     setCurrentSort(sortType);
+    setCurrentPage(1);
   };
 
-  useEffect(() => {
-    let sortedData = [...data];
+  // 🚀 개선된 데이터 조회 (자동 재검색)
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["boardsData", currentPage, currentSort],
+    queryFn: async () => {
+      const response = await fetch(
+        `/boards/data?page=${currentPage}&pageSize=${pagePer}&sortType=${currentSort}`
+      );
+      if (!response.ok) throw new Error("데이터 조회 실패");
+      return response.json();
+    },
+    keepPreviousData: true,
+    staleTime: 1000 * 60 * 5, // 5분간 캐시 유지
+    cacheTime: 1000 * 60 * 60 * 24, // 24시간 캐싱
+    select: (res) => ({
+      posts: res.posts,
+      total: res.total,
+    }),
+    onError: (error) => {
+      queryClient.invalidateQueries("boardsData");
+    },
+  });
 
-    switch (currentSort) {
-      case "latest":
-        sortedData.sort(
-          (a, b) =>
-            new Date(b.date || "2000-01-01") - new Date(a.date || "2000-01-01")
-        );
-        break;
-      case "popular":
-        sortedData.sort((a, b) => b.likes - a.likes);
-        break;
-      case "top":
-        sortedData.sort((a, b) => b.views - a.views);
-        break;
-      default:
-        sortedData = data;
-    }
+  // 인기 게시글 조회 (캐싱 최적화)
+  const { data: topData, isLoading: topLoading } = useQuery({
+    queryKey: ["topPosts"],
+    queryFn: async () => {
+      const response = await fetch("/boards/top");
+      if (!response.ok) throw new Error("인기 게시글 조회 실패");
+      return response.json();
+    },
+    staleTime: 1000 * 60 * 5, // 5분간 캐시 유지
+    refetchInterval: 1000 * 60 * 5, // 5분 주기 재검색
+    refetchOnWindowFocus: true, // 화면 포커스 시 재검색
+    refetchOnMount: false, // 컴포넌트 마운트 시 초기화 방지
 
-    const startIndex = (currentPage - 1) * pagePer;
-    const endIndex = startIndex + pagePer;
-    setCurrentData(sortedData.slice(startIndex, endIndex));
+    onError: (error) => {
+      queryClient.invalidateQueries("topPosts");
+    },
+  });
 
-    const topPopularPosts = [...data]
-      .sort((a, b) => b.likes - a.likes)
-      .slice(0, 3);
-    setPopularPosts(topPopularPosts);
-  }, [currentPage, currentSort]);
+  if (isLoading || topLoading) return <Loading>Loading...</Loading>;
+  if (error) return <Error>{error.message}</Error>;
 
   return (
     <BoardContainer>
@@ -63,8 +78,11 @@ const BoardList = () => {
       <ContentWrapper>
         <LeftSection>
           <PopularPostsGrid>
-            {popularPosts.map((item) => (
-              <PopularPostItem key={item.id}>
+            {topData?.map((item) => (
+              <PopularPostItem
+                key={item.id}
+                onClick={() => nav(`/boards/${item.id}`)}
+              >
                 <PostCategory>{item.category}</PostCategory>
                 <PostTitle>{item.title}</PostTitle>
                 <PostImage src={item.image} alt={item.title} />
@@ -77,7 +95,10 @@ const BoardList = () => {
         <RightSection>
           <NoticeSection>
             {noticeData.map((item) => (
-              <NoticeBox key={item.id}>
+              <NoticeBox
+                key={item.id}
+                onClick={() => nav(`/boards/notice/${item.id}`)}
+              >
                 <NoticeIcon src="/images/speaker.png" />
                 <NoticeTitle>{item.title}</NoticeTitle>
               </NoticeBox>
@@ -85,7 +106,6 @@ const BoardList = () => {
           </NoticeSection>
 
           <BoardListContainer>
-            {/* CSS Grid로 헤더를 구성 */}
             <BoardHeader>
               <HeaderCell className="title">제목</HeaderCell>
               <HeaderCell>작성자</HeaderCell>
@@ -94,8 +114,11 @@ const BoardList = () => {
               <HeaderCell>좋아요</HeaderCell>
             </BoardHeader>
 
-            {currentData.map((item) => (
-              <BoardItem key={item.id}>
+            {data?.posts?.map((item) => (
+              <BoardItem
+                key={item.id}
+                onClick={() => nav(`/boards/${item.id}`)}
+              >
                 <TitleContainer>
                   <Category>{item.category}</Category>
                   <TitleText>{item.title}</TitleText>
@@ -108,8 +131,9 @@ const BoardList = () => {
             ))}
           </BoardListContainer>
           <Pagination
-            data={data}
+            data={Array.from({ length: data?.total || 0 })}
             pagePer={pagePer}
+            currentPage={currentPage}
             onPageChange={handlePageChange}
           />
         </RightSection>
@@ -169,6 +193,7 @@ const PopularPostItem = styled.div`
   padding: 12px;
   transition: transform 0.2s ease;
   flex-grow: 1;
+  cursor: pointer;
 
   &:hover {
     transform: translateY(-2px);
@@ -217,6 +242,7 @@ const NoticeBox = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
 `;
 
 const NoticeIcon = styled.img`
@@ -270,6 +296,7 @@ const BoardItem = styled.div`
   border-bottom: 1px solid #ddd;
   align-items: center;
   text-align: center;
+  cursor: pointer;
 `;
 
 const TitleContainer = styled.div`
@@ -325,6 +352,20 @@ const Likes = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+`;
+
+const Loading = styled.div`
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+  color: #888;
+`;
+
+const Error = styled.div`
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+  color: red;
 `;
 
 export default BoardList;

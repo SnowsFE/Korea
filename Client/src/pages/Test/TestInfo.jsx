@@ -1,50 +1,101 @@
-import { useEffect, useState, useCallback } from "react";
-import axios from "axios";
+import React from "react";
 
 const TestInfo = () => {
-  const [jobInfo, setJobInfo] = useState(null);
-  const [error, setError] = useState(null);
-  const [count, setCount] = useState(0);
+  const data = [
+    {
+      id: 1,
+      title: "게시글 1",
+      category: "공지",
+      date: "2025-02-25",
+      likes: 10,
+      views: 100,
+      author: "홍길동",
+    },
+    {
+      id: 2,
+      title: "게시글 2",
+      category: "자유",
+      date: "2025-02-24",
+      likes: 20,
+      views: 200,
+      author: "김철수",
+    },
+    {
+      id: 3,
+      title: "게시글 3",
+      category: "공지",
+      date: "2025-02-23",
+      likes: 30,
+      views: 300,
+      author: "이영희",
+    },
+    {
+      id: 4,
+      title: "게시글 4",
+      category: "자유",
+      date: "2025-02-22",
+      likes: 40,
+      views: 400,
+      author: "박준호",
+    },
+    {
+      id: 5,
+      title: "게시글 5",
+      category: "기타",
+      date: "2025-02-21",
+      likes: 50,
+      views: 500,
+      author: "최민수",
+    },
+    {
+      id: 6,
+      title: "게시글 6",
+      category: "자유",
+      date: "2025-02-20",
+      likes: 60,
+      views: 600,
+      author: "정지훈",
+    },
+    {
+      id: 7,
+      title: "게시글 7",
+      category: "공지",
+      date: "2025-02-19",
+      likes: 70,
+      views: 700,
+      author: "홍길동",
+    },
+    {
+      id: 8,
+      title: "게시글 8",
+      category: "자유",
+      date: "2025-02-18",
+      likes: 80,
+      views: 800,
+      author: "김철수",
+    },
+    {
+      id: 9,
+      title: "게시글 9",
+      category: "기타",
+      date: "2025-02-17",
+      likes: 90,
+      views: 900,
+      author: "이영희",
+    },
+    {
+      id: 10,
+      title: "게시글 10",
+      category: "공지",
+      date: "2025-02-16",
+      likes: 100,
+      views: 1000,
+      author: "박준호",
+    },
+  ];
 
-  // useCallback을 사용하면 d 함수가 매 렌더링마다 재생성되지 않음
-  const d = useCallback(() => {
-    setCount((prev) => prev + 1);
-  }, []);
-
-  useEffect(() => {
-    // 백엔드 API 경로로 요청
-    axios
-      .get("/c/67ab0a03-cf80-8000-bddf-71eac1cb8588")
-      .then((response) => {
-        setJobInfo(response.data); // 받은 데이터를 상태에 저장
-      })
-      .catch((err) => {
-        setError("데이터를 불러오는 데 실패했습니다.");
-        console.error(err);
-      });
-  }, []); // 컴포넌트가 마운트될 때 한 번 실행
-
-  if (error) {
-    return <div>{error}</div>;
-  }
-
-  if (!jobInfo) {
-    return <div>로딩 중...</div>;
-  }
-
-  return (
-    <div>
-      <h1 onClick={d}>취업 정보</h1>
-      <h2>{count}</h2>
-      <ul>
-        {jobInfo.map((item) => (
-          <li key={item.job}>
-            {item.job} - {item.location}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+  // 작성일 기준으로 오름차순으로 정렬하고, 카테고리가 공지인 것만 화면에 출력하시오.
+  return <div>zz</div>;
 };
 
 export default TestInfo;

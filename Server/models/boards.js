@@ -1,4 +1,4 @@
-const data = [
+module.exports = [
   {
     id: 1,
     title: "코딩전문가와 함께하는 코딩여행",
@@ -209,6 +209,14 @@ const data = [
     author: "친절한 광체씨",
     date: "2025-02-25",
   },
+  {
+    id: 22,
+    title: "실시간 데이터 변동",
+    image: "/images/popBanner.png",
+    category: "999999",
+    views: 99999,
+    likes: 9999,
+    author: "실시간 데이터러",
+    date: "2025-02-26",
+  },
 ];
-
-export default data;
