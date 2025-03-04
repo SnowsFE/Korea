@@ -22,6 +22,11 @@ const BoardList = () => {
     setCurrentPage(1);
   };
 
+  // 글쓰기 페이지로 이동하는 함수
+  const handleWriteClick = () => {
+    nav("/boards/write");
+  };
+
   // 🚀 개선된 데이터 조회 (자동 재검색)
   const { isLoading, error, data } = useQuery({
     queryKey: ["boardsData", currentPage, currentSort],
@@ -68,7 +73,7 @@ const BoardList = () => {
   return (
     <BoardContainer>
       <HeaderSection>
-        <Title>🔥 자유롭게! 솔직하게! 편하게!</Title>
+        <Title>🔥 자유로운 소통의 커뮤니티</Title>
         <SortOptions
           currentSort={currentSort}
           onSortChange={handleSortChange}
@@ -93,17 +98,37 @@ const BoardList = () => {
         </LeftSection>
 
         <RightSection>
-          <NoticeSection>
-            {noticeData.map((item) => (
-              <NoticeBox
-                key={item.id}
-                onClick={() => nav(`/boards/notice/${item.id}`)}
-              >
-                <NoticeIcon src="/images/speaker.png" />
-                <NoticeTitle>{item.title}</NoticeTitle>
-              </NoticeBox>
-            ))}
-          </NoticeSection>
+          <TopRightSection>
+            <NoticeSection>
+              {noticeData.map((item) => (
+                <NoticeBox
+                  key={item.id}
+                  onClick={() => nav(`/boards/notice/${item.id}`)}
+                >
+                  <NoticeIcon src="/images/speaker.png" />
+                  <NoticeTitle>{item.title}</NoticeTitle>
+                </NoticeBox>
+              ))}
+            </NoticeSection>
+
+            <WriteButtonContainer>
+              <WriteButton onClick={handleWriteClick}>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75 1.84-1.83zM3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"
+                    fill="white"
+                  />
+                </svg>
+                <span>글쓰기</span>
+              </WriteButton>
+            </WriteButtonContainer>
+          </TopRightSection>
 
           <BoardListContainer>
             <BoardHeader>
@@ -130,12 +155,14 @@ const BoardList = () => {
               </BoardItem>
             ))}
           </BoardListContainer>
-          <Pagination
-            data={Array.from({ length: data?.total || 0 })}
-            pagePer={pagePer}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-          />
+          <PaginationSection>
+            <Pagination
+              data={Array.from({ length: data?.total || 0 })}
+              pagePer={pagePer}
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
+            />
+          </PaginationSection>
         </RightSection>
       </ContentWrapper>
     </BoardContainer>
@@ -145,7 +172,7 @@ const BoardList = () => {
 const BoardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  font-family: "esamanru-B";
+  font-family: "esamanru-M";
   color: #333;
   padding: 1rem;
 `;
@@ -158,8 +185,8 @@ const HeaderSection = styled.div`
 `;
 
 const Title = styled.h1`
+  font-family: "esamanru-B";
   font-size: 24px;
-  font-weight: bold;
 `;
 
 const ContentWrapper = styled.div`
@@ -218,6 +245,7 @@ const PostCategory = styled.span`
 `;
 
 const PostTitle = styled.div`
+  font-family: "esamanru-B";
   font-size: 14px;
   font-weight: bold;
   margin: 10px 0 4px 0;
@@ -228,10 +256,18 @@ const PostLikes = styled.span`
   color: #666;
 `;
 
+const TopRightSection = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
 const NoticeSection = styled.div`
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
+  flex-grow: 1;
+  font-family: "esamanru-B";
 `;
 
 const NoticeBox = styled.div`
@@ -256,6 +292,37 @@ const NoticeTitle = styled.div`
   flex-grow: 1;
 `;
 
+const WriteButtonContainer = styled.div`
+  margin-left: 15px;
+`;
+
+const WriteButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #16be78;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-family: "esamanru-M";
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(22, 190, 120, 0.3);
+
+  &:hover {
+    background-color: #14a86c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(22, 190, 120, 0.4);
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+`;
+
 const RightSection = styled.div`
   flex-grow: 1;
   display: flex;
@@ -274,10 +341,11 @@ const BoardHeader = styled.div`
   grid-template-columns: 50% 15% 15% 10% 10%;
   background-color: #f8f9fa;
   padding: 10px;
-  font-weight: bold;
   border-radius: 8px;
   align-items: center;
   text-align: center;
+  font-family: "esamanru-B";
+  color: var(--dark);
 `;
 
 const HeaderCell = styled.div`
@@ -352,6 +420,12 @@ const Likes = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+`;
+
+const PaginationSection = styled.div`
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 `;
 
 const Loading = styled.div`
