@@ -26,6 +26,7 @@ const SortOptions = ({ currentSort, onSortChange }) => {
 };
 
 const SortContainer = styled.div`
+  font-family: "esamanru-B";
   font-size: 16px;
   display: flex;
   gap: 1rem;
