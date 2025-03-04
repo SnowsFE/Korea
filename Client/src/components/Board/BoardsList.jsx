@@ -301,11 +301,11 @@ const WriteButton = styled.button`
   align-items: center;
   gap: 8px;
   background-color: #16be78;
-  color: white;
+  color: var(--textColor);
   border: none;
   border-radius: 8px;
   padding: 10px 15px;
-  font-family: "esamanru-M";
+  font-family: "esamanru-B";
   font-size: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -423,7 +423,6 @@ const Likes = styled.span`
 `;
 
 const PaginationSection = styled.div`
-  margin-top: 20px;
   display: flex;
   justify-content: center;
 `;
