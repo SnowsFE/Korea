@@ -1,10 +1,25 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Pagination from "../common/Pagination";
 import SortOptions from "./SortOptions";
 import noticeData from "./NoticeData";
 import { useNavigate } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+
+// 데이터 페칭 함수 분리
+const fetchBoardData = async (currentPage, pagePer, currentSort) => {
+  const response = await fetch(
+    `/boards/data?page=${currentPage}&pageSize=${pagePer}&sortType=${currentSort}`
+  );
+  if (!response.ok) throw new Error("데이터 조회 실패");
+  return response.json();
+};
+
+const fetchTopPosts = async () => {
+  const response = await fetch("/boards/top");
+  if (!response.ok) throw new Error("인기 게시글 조회 실패");
+  return response.json();
+};
 
 const BoardList = () => {
   const nav = useNavigate();
@@ -13,6 +28,53 @@ const BoardList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const queryClient = useQueryClient();
 
+  // 데이터 페칭 훅 통합
+  const useBoardData = (page, sort) => {
+    return useQuery({
+      queryKey: ["boardsData", page, sort],
+      queryFn: () => fetchBoardData(page, pagePer, sort),
+      keepPreviousData: true,
+      staleTime: 1000 * 60 * 5, // 5분 캐시
+      cacheTime: 1000 * 60 * 60 * 24, // 24시간 캐싱
+      select: (res) => ({
+        posts: res.posts,
+        total: res.total,
+      }),
+      onError: (error) => {
+        console.error("게시판 데이터 로드 실패", error);
+        // 에러 시 쿼리 무효화
+        queryClient.invalidateQueries(["boardsData"]);
+      },
+      // 페이지네이션을 위한 프리페칭
+      onSuccess: () => {
+        // 다음 페이지 프리페칭
+        queryClient.prefetchQuery(
+          ["boardsData", currentPage + 1, currentSort],
+          () => fetchBoardData(currentPage + 1, pagePer, currentSort)
+        );
+      },
+      retry: 2, // 실패 시 2번 재시도
+      retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+    });
+  };
+
+  // 인기 게시글 훅
+  const useTopPosts = () => {
+    return useQuery({
+      queryKey: ["topPosts"],
+      queryFn: fetchTopPosts,
+      staleTime: 1000 * 60 * 5, // 5분 캐시
+      refetchInterval: 1000 * 60 * 5, // 5분마다 재검색
+      refetchOnWindowFocus: false, // 윈도우 포커스 시 재검색 방지
+      retry: 1, // 실패 시 1번 재시도
+      onError: (error) => {
+        console.error("인기 게시글 로드 실패", error);
+        queryClient.invalidateQueries(["topPosts"]);
+      },
+    });
+  };
+
+  // 페이지 및 정렬 변경 핸들러
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -22,58 +84,41 @@ const BoardList = () => {
     setCurrentPage(1);
   };
 
-  // 글쓰기 페이지로 이동하는 함수
+  // 글쓰기 페이지 이동
   const handleWriteClick = () => {
     nav("/boards/write");
   };
 
-  // 🚀 개선된 데이터 조회 (자동 재검색)
-  const { isLoading, error, data } = useQuery({
-    queryKey: ["boardsData", currentPage, currentSort],
-    queryFn: async () => {
-      const response = await fetch(
-        `/boards/data?page=${currentPage}&pageSize=${pagePer}&sortType=${currentSort}`
-      );
-      if (!response.ok) throw new Error("데이터 조회 실패");
-      return response.json();
-    },
-    keepPreviousData: true,
-    staleTime: 1000 * 60 * 5, // 5분간 캐시 유지
-    cacheTime: 1000 * 60 * 60 * 24, // 24시간 캐싱
-    select: (res) => ({
-      posts: res.posts,
-      total: res.total,
-    }),
-    onError: (error) => {
-      queryClient.invalidateQueries("boardsData");
-    },
-  });
+  // 데이터 쿼리
+  const {
+    isLoading: isBoardLoading,
+    error: boardError,
+    data: boardData,
+  } = useBoardData(currentPage, currentSort);
 
-  // 인기 게시글 조회 (캐싱 최적화)
-  const { data: topData, isLoading: topLoading } = useQuery({
-    queryKey: ["topPosts"],
-    queryFn: async () => {
-      const response = await fetch("/boards/top");
-      if (!response.ok) throw new Error("인기 게시글 조회 실패");
-      return response.json();
-    },
-    staleTime: 1000 * 60 * 5, // 5분간 캐시 유지
-    refetchInterval: 1000 * 60 * 5, // 5분 주기 재검색
-    refetchOnWindowFocus: true, // 화면 포커스 시 재검색
-    refetchOnMount: false, // 컴포넌트 마운트 시 초기화 방지
+  const {
+    isLoading: isTopLoading,
+    error: topError,
+    data: topData,
+  } = useTopPosts();
 
-    onError: (error) => {
-      queryClient.invalidateQueries("topPosts");
-    },
-  });
+  // 로딩 및 에러 상태 처리
+  if (isBoardLoading || isTopLoading) {
+    return <Loading>로딩 중...</Loading>;
+  }
 
-  if (isLoading || topLoading) return <Loading>Loading...</Loading>;
-  if (error) return <Error>{error.message}</Error>;
+  if (boardError) {
+    return <Error>게시판 데이터 로드 중 오류: {boardError.message}</Error>;
+  }
+
+  if (topError) {
+    return <Error>인기 게시글 로드 중 오류: {topError.message}</Error>;
+  }
 
   return (
     <BoardContainer>
       <HeaderSection>
-        <Title>🔥 자유로운 소통의 커뮤니티</Title>
+        <Title>🔥 와글와글 광장</Title>
         <SortOptions
           currentSort={currentSort}
           onSortChange={handleSortChange}
@@ -139,7 +184,7 @@ const BoardList = () => {
               <HeaderCell>좋아요</HeaderCell>
             </BoardHeader>
 
-            {data?.posts?.map((item) => (
+            {boardData?.posts?.map((item) => (
               <BoardItem
                 key={item.id}
                 onClick={() => nav(`/boards/${item.id}`)}
@@ -157,7 +202,7 @@ const BoardList = () => {
           </BoardListContainer>
           <PaginationSection>
             <Pagination
-              data={Array.from({ length: data?.total || 0 })}
+              data={Array.from({ length: boardData?.total || 0 })}
               pagePer={pagePer}
               currentPage={currentPage}
               onPageChange={handlePageChange}
@@ -184,9 +229,22 @@ const HeaderSection = styled.div`
   margin-bottom: 1.5rem;
 `;
 
+const bounce = keyframes`
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+  60% {
+    transform: translateY(-3px);
+  }
+`;
+
 const Title = styled.h1`
   font-family: "esamanru-B";
   font-size: 24px;
+  animation: ${bounce} 3s ease infinite;
 `;
 
 const ContentWrapper = styled.div`
