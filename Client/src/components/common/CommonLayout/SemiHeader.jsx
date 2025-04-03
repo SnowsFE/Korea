@@ -54,8 +54,7 @@ const Section = styled.div`
   background: #fff;
 
   img {
-    margin-top: 5px;
-    width: 128px;
+    width: 80px;
   }
 `;
 
