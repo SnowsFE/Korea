@@ -13,7 +13,6 @@ import Layout from "./components/common/Layout/Layout";
 import Event from "./pages/Event/Event";
 import Board from "./components/Board/Boards";
 import JobApi from "./pages/JobInfo/Job";
-import Test from "./pages/Test/TestInfo";
 import Footer from "./components/common/Layout/Footer";
 import NotFound from "./components/common/NotFound";
 
@@ -58,7 +57,6 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="boards/*" element={<Board />} />
             <Route path="job/*" element={<JobApi />} />
-            <Route path="test" element={<Test />} />
           </Route>
           <Route path="/event/*" element={<Event />} />
           <Route path="*" element={<NotFound />} />
